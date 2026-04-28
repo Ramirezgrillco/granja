@@ -1197,10 +1197,16 @@ let msalAccount = null;
 
 // ── AUTH ──────────────────────────────────
 async function signIn() {
+  const el = document.getElementById('auth-error');
   try {
+    if (!window._msalReady) {
+      el.textContent = 'Cargando... intenta de nuevo en 2 segundos';
+      el.style.display = 'block';
+      return;
+    }
+    el.style.display = 'none';
     await msalApp.loginRedirect({ scopes: SCOPES, prompt: "consent" });
   } catch(e) {
-    const el = document.getElementById('auth-error');
     el.textContent = 'Error: ' + (e.message || 'No se pudo iniciar sesión');
     el.style.display = 'block';
   }
@@ -1208,6 +1214,7 @@ async function signIn() {
 
 async function tryAutoLogin() {
   await msalApp.initialize();
+  window._msalReady = true;
   // Handle redirect response first
   try {
     const resp = await msalApp.handleRedirectPromise();
@@ -1324,7 +1331,7 @@ async function initApp() {
 }
 
 // Auto-login on load — if already signed in, skip auth screen
-tryAutoLogin();
+window.addEventListener('load', () => { tryAutoLogin(); });
 </script>
 </body>
 </html>
