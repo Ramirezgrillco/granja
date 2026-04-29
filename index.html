@@ -692,7 +692,7 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
 // ═══════════════════════════════════════════
 const CLIENT_ID   = '4cda6e95-6832-4791-9f45-04c2e8dc391e';
 const REDIRECT_URI = 'https://Ramirezgrillco.github.io/granja/';
-const SCOPES      = 'Files.ReadWrite.All User.Read Sites.ReadWrite.All';
+const SCOPES      = 'Files.ReadWrite User.Read';
 const AUTH_URL    = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize';
 const TOKEN_URL   = 'https://login.microsoftonline.com/common/oauth2/v2.0/token';
 const FILE_NAME      = 'GranjaApp_Data.json';
@@ -825,59 +825,41 @@ async function getFileUrl(method, body) {
   return urlPersonal;
 }
 
-async function getSPSiteId() {
-  // Get the SharePoint site ID using the site URL
-  const encoded = encodeURIComponent(SP_SITE_URL);
-  const url  = `https://graph.microsoft.com/v1.0/sites/${encoded.replace('https%3A%2F%2F','').replace('%2F',':')}`;
+// Cache file item ID once found
+let _fileItemId = null;
+
+async function findFile() {
+  if (_fileItemId) return _fileItemId;
   try {
-    const resp = await fetch(`https://graph.microsoft.com/v1.0/sites/vpminsectsl.sharepoint.com:/Grillco`,
-      { headers: { Authorization: 'Bearer ' + accessToken } });
-    if (!resp.ok) return null;
+    // Search in sharedWithMe first
+    const resp = await fetch(
+      `https://graph.microsoft.com/v1.0/me/drive/search(q='${FILE_NAME}')`,
+      { headers: { Authorization: 'Bearer ' + accessToken } }
+    );
     const data = await resp.json();
-    return data.id;
+    if (data.value && data.value.length > 0) {
+      const f = data.value.find(f => f.name === FILE_NAME);
+      if (f) { _fileItemId = f.id; return f.id; }
+    }
+    return null;
   } catch(e) { return null; }
-}
-
-async function getSPDriveId(siteId) {
-  try {
-    const resp = await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/drives`,
-      { headers: { Authorization: 'Bearer ' + accessToken } });
-    const data = await resp.json();
-    // Find the documents drive
-    const drive = data.value && data.value.find(d => d.driveType === 'documentLibrary');
-    return drive ? drive.id : null;
-  } catch(e) { return null; }
-}
-
-// Cache site/drive IDs
-let _spSiteId  = null;
-let _spDriveId = null;
-
-async function getSPIds() {
-  if (_spSiteId && _spDriveId) return { siteId: _spSiteId, driveId: _spDriveId };
-  _spSiteId  = await getSPSiteId();
-  if (!_spSiteId) return null;
-  _spDriveId = await getSPDriveId(_spSiteId);
-  if (!_spDriveId) return null;
-  return { siteId: _spSiteId, driveId: _spDriveId };
 }
 
 async function readData() {
   try {
-    const ids = await getSPIds();
-    if (ids) {
-      const filePath = `${SP_FOLDER_PATH}/${FILE_NAME}`;
-      const url  = `https://graph.microsoft.com/v1.0/drives/${ids.driveId}/root:${filePath}:/content`;
+    // Try 1: search across all drives (finds shared files too)
+    const itemId = await findFile();
+    if (itemId) {
+      const url  = `https://graph.microsoft.com/v1.0/me/drive/items/${itemId}/content`;
       const resp = await fetch(url, { headers: { Authorization: 'Bearer ' + accessToken } });
-      if (resp.status === 404) return null;
       if (resp.ok) return await resp.json();
     }
-    // Fallback: personal OneDrive
+    // Try 2: personal OneDrive path
     const url2  = `https://graph.microsoft.com/v1.0/me/drive/root:/${FOLDER_PATH}/${FILE_NAME}:/content`;
     const resp2 = await fetch(url2, { headers: { Authorization: 'Bearer ' + accessToken } });
     if (resp2.status === 404) return null;
-    if (!resp2.ok) throw new Error('Read error ' + resp2.status);
-    return await resp2.json();
+    if (resp2.ok) return await resp2.json();
+    return null;
   } catch(e) {
     console.warn('readData:', e);
     return null;
@@ -887,12 +869,13 @@ async function readData() {
 async function writeData(data) {
   setSyncing(true);
   try {
-    const ids = await getSPIds();
+    // Try to write via item ID (works for shared files)
+    const itemId = await findFile();
     let url;
-    if (ids) {
-      const filePath = `${SP_FOLDER_PATH}/${FILE_NAME}`;
-      url = `https://graph.microsoft.com/v1.0/drives/${ids.driveId}/root:${filePath}:/content`;
+    if (itemId) {
+      url = `https://graph.microsoft.com/v1.0/me/drive/items/${itemId}/content`;
     } else {
+      // Fallback: create in personal OneDrive
       url = `https://graph.microsoft.com/v1.0/me/drive/root:/${FOLDER_PATH}/${FILE_NAME}:/content`;
     }
     const resp = await fetch(url, {
@@ -900,10 +883,9 @@ async function writeData(data) {
       headers: { Authorization: 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
       body:    JSON.stringify(data)
     });
-    if (!resp.ok) throw new Error('Write error ' + resp.status);
+    if (!resp.ok) throw new Error(resp.status);
     showSynced();
   } catch(e) {
-    console.error('writeData:', e);
     flash('⚠ Error al guardar: ' + e.message);
   } finally {
     setSyncing(false);
