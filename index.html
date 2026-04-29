@@ -7,25 +7,25 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0f1117;
-  --bg2: #161b26;
-  --bg3: #1e2535;
-  --bg4: #252d40;
-  --border: rgba(255,255,255,0.08);
-  --border2: rgba(255,255,255,0.14);
-  --text: #e8eaf0;
-  --text2: #8891a8;
-  --text3: #555f78;
-  --green: #22c87a;
-  --green2: #16a062;
-  --green-bg: rgba(34,200,122,0.1);
-  --amber: #f5a623;
-  --amber-bg: rgba(245,166,35,0.1);
-  --red: #f05252;
-  --red-bg: rgba(240,82,82,0.1);
-  --blue: #4f8ef7;
-  --blue-bg: rgba(79,142,247,0.1);
-  --purple: #a78bfa;
+  --bg: #1a1f16;
+  --bg2: #212818;
+  --bg3: #2a3320;
+  --bg4: #323d27;
+  --border: rgba(180,210,160,0.12);
+  --border2: rgba(180,210,160,0.20);
+  --text: #e8ead8;
+  --text2: #9aaa7a;
+  --text3: #5a6b45;
+  --green: #6aaa5a;
+  --green2: #4a8a3a;
+  --green-bg: rgba(106,170,90,0.15);
+  --amber: #d4a843;
+  --amber-bg: rgba(212,168,67,0.12);
+  --red: #e05a4a;
+  --red-bg: rgba(224,90,74,0.12);
+  --blue: #7ab8c8;
+  --blue-bg: rgba(122,184,200,0.12);
+  --purple: #a89060;
   --radius: 12px;
   --radius-sm: 8px;
 }
@@ -86,8 +86,8 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
   font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
   cursor: pointer; transition: all 0.18s; display: inline-flex; align-items: center; gap: 8px;
 }
-.btn-primary { background: var(--green); color: #0a1a12; }
-.btn-primary:hover { background: #2de88a; transform: translateY(-1px); }
+.btn-primary { background: var(--green); color: #0d1a08; }
+.btn-primary:hover { background: #7acc6a; transform: translateY(-1px); }
 .btn-primary:active { transform: translateY(0); }
 .btn-secondary { background: var(--bg3); color: var(--text2); border: 1px solid var(--border2); }
 .btn-secondary:hover { background: var(--bg4); color: var(--text); }
@@ -145,7 +145,7 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
 /* ── SUCCESS FLASH ── */
 .flash {
   position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
-  background: var(--green); color: #0a1a12; padding: 12px 24px; border-radius: 24px;
+  background: var(--green); color: #0d1a08; padding: 12px 24px; border-radius: 24px;
   font-weight: 600; font-size: 14px; z-index: 999; transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
   box-shadow: 0 8px 32px rgba(34,200,122,0.3); white-space: nowrap;
 }
@@ -198,11 +198,11 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
 .auth-logo { font-family:'DM Mono',monospace;font-size:28px;color:var(--green);margin-bottom:8px; }
 .auth-sub  { font-size:14px;color:var(--text2);margin-bottom:32px;line-height:1.6; }
 .auth-btn  {
-  background:var(--green);color:#0a1a12;border:none;padding:14px 32px;
+  background:var(--green);color:#0d1a08;border:none;padding:14px 32px;
   border-radius:10px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;
   cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:10px;
 }
-.auth-btn:hover { background:#2de88a;transform:translateY(-2px); }
+.auth-btn:hover { background:#7acc6a;transform:translateY(-2px); }
 .auth-btn svg { flex-shrink:0; }
 .sync-bar {
   position:fixed;top:0;left:0;right:0;height:3px;background:var(--green);
@@ -281,6 +281,12 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
     <button class="nav-btn" onclick="showPage('lotes', this)">
       <div class="nav-dot"></div> Lotes
     </button>
+    <button class="nav-btn" onclick="showPage('trabajadores', this)">
+      <div class="nav-dot"></div> Trabajadores
+    </button>
+    <button class="nav-btn" onclick="showPage('dashboard', this)">
+      <div class="nav-dot"></div> Dashboard
+    </button>
   </div>
 
   <!-- ════════════════════════════════════════
@@ -332,7 +338,17 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
         </div>
         <div class="field">
           <label>Responsable</label>
-          <input type="text" id="inc-responsable" placeholder="Nombre">
+          <select id="inc-responsable" style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 12px;transition:border-color 0.2s;outline:none;">
+            <option value="">Seleccionar...</option>
+            <option value="Begoña">Begoña</option>
+            <option value="Damia">Damia</option>
+            <option value="Felipe">Felipe</option>
+            <option value="Juliana">Juliana</option>
+            <option value="Marina">Marina</option>
+            <option value="Mohammed">Mohammed</option>
+            <option value="Napoleon">Napoleon</option>
+            <option value="Rodrigo">Rodrigo</option>
+          </select>
         </div>
       </div>
       <button class="btn btn-primary btn-full" onclick="registrarCaja()">
@@ -374,12 +390,12 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
       <div class="card-title">② Datos de colecta</div>
       <div class="form-grid">
         <div class="field">
-          <label>Peso húmedo (g)</label>
-          <input type="number" id="obr-peso-humedo" placeholder="0">
+          <label>Peso húmedo (kg)</label>
+          <input type="number" id="obr-peso-humedo" placeholder="0.00" step="0.01">
         </div>
         <div class="field">
-          <label>Peso seco (g)</label>
-          <input type="number" id="obr-peso-seco" placeholder="0">
+          <label>Peso seco (kg)</label>
+          <input type="number" id="obr-peso-seco" placeholder="0.00" step="0.01">
         </div>
         <div class="field">
           <label>Kg de producto</label>
@@ -391,7 +407,17 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
         </div>
         <div class="field">
           <label>Responsable</label>
-          <input type="text" id="obr-responsable" placeholder="Nombre">
+          <select id="obr-responsable" style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 12px;transition:border-color 0.2s;outline:none;">
+            <option value="">Seleccionar...</option>
+            <option value="Begoña">Begoña</option>
+            <option value="Damia">Damia</option>
+            <option value="Felipe">Felipe</option>
+            <option value="Juliana">Juliana</option>
+            <option value="Marina">Marina</option>
+            <option value="Mohammed">Mohammed</option>
+            <option value="Napoleon">Napoleon</option>
+            <option value="Rodrigo">Rodrigo</option>
+          </select>
         </div>
       </div>
     </div>
@@ -404,6 +430,16 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
         <div class="field humidity-field"><label>M3</label><input type="number" id="obr-h3" placeholder="0" step="0.1"></div>
         <div class="field humidity-field"><label>M4</label><input type="number" id="obr-h4" placeholder="0" step="0.1"></div>
         <div class="field humidity-field"><label>M5</label><input type="number" id="obr-h5" placeholder="0" step="0.1"></div>
+      </div>
+      <button type="button" id="btn-mas-muestras" onclick="toggleMuestrasExtra()" style="margin-top:8px;font-size:12px;color:var(--text2);background:none;border:1px dashed var(--border2);border-radius:6px;padding:5px 14px;cursor:pointer;">+ Agregar muestras extra (M6–M10)</button>
+      <div id="muestras-extra" style="display:none;margin-top:8px">
+        <div class="humidity-grid">
+          <div class="field humidity-field"><label>M6</label><input type="number" id="obr-h6" placeholder="0" step="0.1"></div>
+          <div class="field humidity-field"><label>M7</label><input type="number" id="obr-h7" placeholder="0" step="0.1"></div>
+          <div class="field humidity-field"><label>M8</label><input type="number" id="obr-h8" placeholder="0" step="0.1"></div>
+          <div class="field humidity-field"><label>M9</label><input type="number" id="obr-h9" placeholder="0" step="0.1"></div>
+          <div class="field humidity-field"><label>M10</label><input type="number" id="obr-h10" placeholder="0" step="0.1"></div>
+        </div>
       </div>
       <div id="obr-humedad-avg" style="margin-top:10px;font-size:13px;color:var(--text2)">Promedio: — %</div>
       <div style="display:grid;grid-template-columns:1fr;margin-top:8px">
@@ -483,7 +519,17 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
         </div>
         <div class="field">
           <label>Responsable</label>
-          <input type="text" id="pienso-responsable" placeholder="Nombre">
+          <select id="pienso-responsable" style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 12px;transition:border-color 0.2s;outline:none;">
+            <option value="">Seleccionar...</option>
+            <option value="Begoña">Begoña</option>
+            <option value="Damia">Damia</option>
+            <option value="Felipe">Felipe</option>
+            <option value="Juliana">Juliana</option>
+            <option value="Marina">Marina</option>
+            <option value="Mohammed">Mohammed</option>
+            <option value="Napoleon">Napoleon</option>
+            <option value="Rodrigo">Rodrigo</option>
+          </select>
         </div>
       </div>
       <div class="field" style="margin-top:8px">
@@ -567,6 +613,60 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
     </div>
   </div>
 
+  <!-- TRABAJADORES -->
+  <div id="page-trabajadores" class="page">
+    <div class="section-title">Trabajadores</div>
+    <div class="section-sub">Asignación semanal de tareas y colecta del día</div>
+
+    <div class="card">
+      <div class="card-title">Semana actual</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div id="trab-semana-label" style="font-size:13px;color:var(--text2)"></div>
+        <button class="btn btn-secondary" onclick="regenerarSemana()" style="font-size:12px;padding:7px 14px">↻ Nuevo sorteo semanal</button>
+      </div>
+      <div id="tabla-semana"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Colecta del día — asignar caja a trabajador</div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Caja a coletar</label>
+          <select id="colecta-caja">
+            <option value="">Seleccionar caja urgente...</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Asignar a</label>
+          <select id="colecta-trabajador">
+            <option value="">Seleccionar trabajador...</option>
+            <option value="Begoña">Begoña</option>
+            <option value="Damia">Damia</option>
+            <option value="Felipe">Felipe</option>
+            <option value="Juliana">Juliana</option>
+            <option value="Marina">Marina</option>
+            <option value="Mohammed">Mohammed</option>
+            <option value="Napoleon">Napoleon</option>
+            <option value="Rodrigo">Rodrigo</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="asignarColecta()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        Asignar colecta
+      </button>
+      <div id="lista-colectas-hoy" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="page-dashboard" class="page">
+    <div class="section-title">Dashboard</div>
+    <div class="section-sub">Resumen general del sistema</div>
+    <div id="dashboard-content"></div>
+  </div>
+
+
 </div>
 
 <!-- FLASH -->
@@ -592,11 +692,14 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
 // ═══════════════════════════════════════════
 const CLIENT_ID   = '4cda6e95-6832-4791-9f45-04c2e8dc391e';
 const REDIRECT_URI = 'https://Ramirezgrillco.github.io/granja/';
-const SCOPES      = 'Files.ReadWrite User.Read';
+const SCOPES      = 'Files.ReadWrite.All User.Read Sites.ReadWrite.All';
 const AUTH_URL    = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize';
 const TOKEN_URL   = 'https://login.microsoftonline.com/common/oauth2/v2.0/token';
-const FILE_NAME   = 'GranjaApp_Data.json';
-const FOLDER_PATH = 'GranjaApp';
+const FILE_NAME      = 'GranjaApp_Data.json';
+const FOLDER_PATH    = 'GranjaApp';
+// SharePoint empresa
+const SP_SITE_URL    = 'https://vpminsectsl.sharepoint.com/Grillco';
+const SP_FOLDER_PATH = '/Felipe/GranjaApp';
 
 let accessToken = null;
 
@@ -714,13 +817,67 @@ async function handleAuthRedirect() {
 }
 
 // ── ONEDRIVE READ / WRITE ─────────────────
+async function getFileUrl(method, body) {
+  // Try 1: Mis archivos (ruta personal)
+  const urlPersonal = `https://graph.microsoft.com/v1.0/me/drive/root:/${FOLDER_PATH}/${FILE_NAME}:/content`;
+  // Try 2: SharePoint compartido — busca el archivo por nombre en todos los drives accesibles
+  const urlShared   = `https://graph.microsoft.com/v1.0/me/drive/root:/${FOLDER_PATH}/${FILE_NAME}:/content`;
+  return urlPersonal;
+}
+
+async function getSPSiteId() {
+  // Get the SharePoint site ID using the site URL
+  const encoded = encodeURIComponent(SP_SITE_URL);
+  const url  = `https://graph.microsoft.com/v1.0/sites/${encoded.replace('https%3A%2F%2F','').replace('%2F',':')}`;
+  try {
+    const resp = await fetch(`https://graph.microsoft.com/v1.0/sites/vpminsectsl.sharepoint.com:/Grillco`,
+      { headers: { Authorization: 'Bearer ' + accessToken } });
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    return data.id;
+  } catch(e) { return null; }
+}
+
+async function getSPDriveId(siteId) {
+  try {
+    const resp = await fetch(`https://graph.microsoft.com/v1.0/sites/${siteId}/drives`,
+      { headers: { Authorization: 'Bearer ' + accessToken } });
+    const data = await resp.json();
+    // Find the documents drive
+    const drive = data.value && data.value.find(d => d.driveType === 'documentLibrary');
+    return drive ? drive.id : null;
+  } catch(e) { return null; }
+}
+
+// Cache site/drive IDs
+let _spSiteId  = null;
+let _spDriveId = null;
+
+async function getSPIds() {
+  if (_spSiteId && _spDriveId) return { siteId: _spSiteId, driveId: _spDriveId };
+  _spSiteId  = await getSPSiteId();
+  if (!_spSiteId) return null;
+  _spDriveId = await getSPDriveId(_spSiteId);
+  if (!_spDriveId) return null;
+  return { siteId: _spSiteId, driveId: _spDriveId };
+}
+
 async function readData() {
   try {
-    const url  = `https://graph.microsoft.com/v1.0/me/drive/root:/${FOLDER_PATH}/${FILE_NAME}:/content`;
-    const resp = await fetch(url, { headers: { Authorization: 'Bearer ' + accessToken } });
-    if (resp.status === 404) return null;
-    if (!resp.ok) throw new Error('Read error ' + resp.status);
-    return await resp.json();
+    const ids = await getSPIds();
+    if (ids) {
+      const filePath = `${SP_FOLDER_PATH}/${FILE_NAME}`;
+      const url  = `https://graph.microsoft.com/v1.0/drives/${ids.driveId}/root:${filePath}:/content`;
+      const resp = await fetch(url, { headers: { Authorization: 'Bearer ' + accessToken } });
+      if (resp.status === 404) return null;
+      if (resp.ok) return await resp.json();
+    }
+    // Fallback: personal OneDrive
+    const url2  = `https://graph.microsoft.com/v1.0/me/drive/root:/${FOLDER_PATH}/${FILE_NAME}:/content`;
+    const resp2 = await fetch(url2, { headers: { Authorization: 'Bearer ' + accessToken } });
+    if (resp2.status === 404) return null;
+    if (!resp2.ok) throw new Error('Read error ' + resp2.status);
+    return await resp2.json();
   } catch(e) {
     console.warn('readData:', e);
     return null;
@@ -730,15 +887,24 @@ async function readData() {
 async function writeData(data) {
   setSyncing(true);
   try {
-    const url  = `https://graph.microsoft.com/v1.0/me/drive/root:/${FOLDER_PATH}/${FILE_NAME}:/content`;
-    await fetch(url, {
+    const ids = await getSPIds();
+    let url;
+    if (ids) {
+      const filePath = `${SP_FOLDER_PATH}/${FILE_NAME}`;
+      url = `https://graph.microsoft.com/v1.0/drives/${ids.driveId}/root:${filePath}:/content`;
+    } else {
+      url = `https://graph.microsoft.com/v1.0/me/drive/root:/${FOLDER_PATH}/${FILE_NAME}:/content`;
+    }
+    const resp = await fetch(url, {
       method:  'PUT',
       headers: { Authorization: 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
       body:    JSON.stringify(data)
     });
+    if (!resp.ok) throw new Error('Write error ' + resp.status);
     showSynced();
   } catch(e) {
-    flash('⚠ Error al guardar en OneDrive');
+    console.error('writeData:', e);
+    flash('⚠ Error al guardar: ' + e.message);
   } finally {
     setSyncing(false);
   }
@@ -795,6 +961,7 @@ async function initApp() {
 }
 
 // Auto-login on load — if already signed in, skip auth screen
+tryAutoLogin();
 
 
 
@@ -821,6 +988,8 @@ function showPage(id, btn) {
   if (id === 'trazabilidad') renderTrazabilidad();
   if (id === 'pienso')       renderPienso();
   if (id === 'lotes')        renderLotes();
+  if (id === 'trabajadores') renderTrabajadores();
+  if (id === 'dashboard')    renderDashboard();
 }
 
 function setArea(val) {
@@ -1052,15 +1221,7 @@ function buscarCajaObrador() {
   document.getElementById(id).addEventListener('input', calcAvgHumedad);
 });
 
-function calcAvgHumedad() {
-  const vals = ['obr-h1','obr-h2','obr-h3','obr-h4','obr-h5']
-    .map(id => parseFloat(document.getElementById(id).value))
-    .filter(v => !isNaN(v));
-  const el = document.getElementById('obr-humedad-avg');
-  if (!vals.length) { el.textContent = 'Promedio: — %'; return; }
-  const avg = (vals.reduce((a,b) => a+b, 0) / vals.length).toFixed(2);
-  el.innerHTML = `Promedio: <b style="color:var(--green)">${avg}%</b>`;
-}
+// calcAvgHumedad defined above with 10 samples
 
 // ═══════════════════════════════════════════
 // OBRADOR — CONFIRMAR
@@ -1073,7 +1234,7 @@ async function confirmarObrador() {
   const lote       = document.getElementById('obr-lote').value.trim().toUpperCase();
   const responsable= document.getElementById('obr-responsable').value.trim();
   const obs        = document.getElementById('obr-obs').value.trim();
-  const h = ['obr-h1','obr-h2','obr-h3','obr-h4','obr-h5'].map(id => document.getElementById(id).value || '');
+  const h = ['obr-h1','obr-h2','obr-h3','obr-h4','obr-h5','obr-h6','obr-h7','obr-h8','obr-h9','obr-h10'].map(id => { const el = document.getElementById(id); return el ? (el.value || '') : ''; });
   const avgH = h.map(v => parseFloat(v)).filter(v => !isNaN(v));
   const promedioHumedad = avgH.length ? (avgH.reduce((a,b)=>a+b,0)/avgH.length).toFixed(2) : '';
 
@@ -1171,8 +1332,8 @@ function renderTrazabilidad() {
         ${tf('Ingreso', formatDate(r.fechaIngreso))}
         ${tf('Colecta est.', formatDate(r.fechaColecta))}
         ${tf('Días vividos', r.diasVividos + ' días')}
-        ${tf('Peso húmedo', r.pesoHumedo ? r.pesoHumedo + ' g' : '—')}
-        ${tf('Peso seco', r.pesoSeco ? r.pesoSeco + ' g' : '—')}
+        ${tf('Peso húmedo', r.pesoHumedo ? r.pesoHumedo + ' kg' : '—')}
+        ${tf('Peso seco', r.pesoSeco ? r.pesoSeco + ' kg' : '—')}
         ${tf('Kg producto', r.kgProd ? r.kgProd + ' kg' : '—')}
         ${tf('Humedad prom.', r.promedioHumedad ? r.promedioHumedad + '%' : '—')}
         ${tf('Resp. obrador', r.responsableObr || '—')}
@@ -1383,6 +1544,257 @@ function renderLotes() {
       </div>` : ''}
     </div>`;
   }).join('');
+}
+
+
+// ═══════════════════════════════════════════
+// TOGGLE MUESTRAS EXTRA
+// ═══════════════════════════════════════════
+function toggleMuestrasExtra() {
+  const el  = document.getElementById('muestras-extra');
+  const btn = document.getElementById('btn-mas-muestras');
+  const open = el.style.display === 'none';
+  el.style.display  = open ? 'grid' : 'none';
+  btn.textContent   = open ? '− Ocultar muestras extra' : '+ Agregar muestras extra (M6–M10)';
+  el.style.gridTemplateColumns = 'repeat(5,1fr)';
+  el.style.gap = '8px';
+  calcAvgHumedad();
+}
+
+// ═══════════════════════════════════════════
+// HUMIDITY — extend to 10 samples
+// ═══════════════════════════════════════════
+function calcAvgHumedad() {
+  const ids = ['obr-h1','obr-h2','obr-h3','obr-h4','obr-h5','obr-h6','obr-h7','obr-h8','obr-h9','obr-h10'];
+  const vals = ids.map(id => { const el = document.getElementById(id); return el ? parseFloat(el.value) : NaN; }).filter(v => !isNaN(v));
+  const el = document.getElementById('obr-humedad-avg');
+  if (!vals.length) { el.textContent = 'Promedio: — %'; return; }
+  const avg = (vals.reduce((a,b) => a+b, 0) / vals.length).toFixed(2);
+  el.innerHTML = 'Promedio: <b style="color:var(--green)">' + avg + '%</b> (' + vals.length + ' muestras)';
+}
+
+// ═══════════════════════════════════════════
+// TRABAJADORES — TAREAS Y SORTEO
+// ═══════════════════════════════════════════
+let tareasSemanales = JSON.parse(sessionStorage.getItem('tareas_sem') || 'null');
+let colectasHoy     = JSON.parse(sessionStorage.getItem('colectas_hoy') || '[]');
+
+const TRABAJADORES = {
+  incubacion: ['Begoña', 'Marina'],
+  obrador:    ['Rodrigo'],
+  granja:     ['Damia', 'Felipe', 'Juliana', 'Mohammed', 'Napoleon']
+};
+
+const TAREAS_GRANJA = [
+  'Cambiar agua',
+  'Cambiar comida',
+  'Lavar cajas',
+  'Armar cajas',
+  'Cortar hueveras',
+];
+
+const DIAS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+
+function getLunesSemana() {
+  const hoy = new Date();
+  const dow  = hoy.getDay(); // 0=dom
+  const diff = dow === 0 ? -6 : 1 - dow;
+  const lun  = new Date(hoy);
+  lun.setDate(hoy.getDate() + diff);
+  return lun.toISOString().split('T')[0];
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function generarTareasSemana() {
+  const granja = TRABAJADORES.granja;
+  const semana = {};
+  // Each day: rotate tasks so everyone gets variety across the week
+  DIAS.forEach((dia, di) => {
+    semana[dia] = {};
+    // Incubación — fixed area
+    TRABAJADORES.incubacion.forEach(t => { semana[dia][t] = 'Incubación — seguimiento cajas'; });
+    // Obrador — fixed area
+    TRABAJADORES.obrador.forEach(t => { semana[dia][t] = 'Obrador — procesado'; });
+    // Granja — rotate tasks
+    const rotated = [];
+    for (let i = 0; i < granja.length; i++) {
+      rotated.push(TAREAS_GRANJA[(i + di) % TAREAS_GRANJA.length]);
+    }
+    // Assign extra tasks if granja > tareas
+    granja.forEach((t, i) => { semana[dia][t] = rotated[i]; });
+  });
+  return semana;
+}
+
+function regenerarSemana() {
+  if (!confirm('¿Generar nuevo sorteo semanal? Esto reemplazará el actual.')) return;
+  tareasSemanales = generarTareasSemana();
+  sessionStorage.setItem('tareas_sem', JSON.stringify(tareasSemanales));
+  renderTrabajadores();
+  flash('✓ Sorteo semanal generado');
+}
+
+function renderTrabajadores() {
+  // Init if needed
+  if (!tareasSemanales) {
+    tareasSemanales = generarTareasSemana();
+    sessionStorage.setItem('tareas_sem', JSON.stringify(tareasSemanales));
+  }
+
+  // Label semana
+  const lun = getLunesSemana();
+  const dom = new Date(lun); dom.setDate(dom.getDate() + 6);
+  document.getElementById('trab-semana-label').textContent =
+    'Semana: ' + formatDate(lun) + ' → ' + formatDate(dom.toISOString().split('T')[0]);
+
+  // Build week table
+  const todos = [...TRABAJADORES.incubacion, ...TRABAJADORES.obrador, ...TRABAJADORES.granja];
+  const hoy = DIAS[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1];
+
+  let tableHTML = '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">';
+  tableHTML += '<tr><th style="padding:6px 8px;text-align:left;color:var(--text3);border-bottom:1px solid var(--border)">Trabajador</th>';
+  DIAS.forEach(d => {
+    const isHoy = d === hoy;
+    tableHTML += `<th style="padding:6px 8px;text-align:center;color:${isHoy ? 'var(--green)' : 'var(--text3)'};border-bottom:1px solid var(--border);${isHoy ? 'font-weight:600' : ''}">${d.slice(0,3)}</th>`;
+  });
+  tableHTML += '</tr>';
+
+  todos.forEach((t, ti) => {
+    const bg = ti % 2 === 0 ? 'background:var(--bg3)' : '';
+    tableHTML += `<tr style="${bg}"><td style="padding:7px 8px;font-weight:500;font-size:13px;white-space:nowrap">${t}</td>`;
+    DIAS.forEach(d => {
+      const tarea = tareasSemanales[d] ? (tareasSemanales[d][t] || '—') : '—';
+      const isHoy = d === hoy;
+      const short = tarea.length > 14 ? tarea.slice(0, 13) + '…' : tarea;
+      tableHTML += `<td style="padding:5px 8px;text-align:center;color:${isHoy ? 'var(--text)' : 'var(--text2)'};${isHoy ? 'font-weight:500' : ''}" title="${tarea}">${short}</td>`;
+    });
+    tableHTML += '</tr>';
+  });
+  tableHTML += '</table></div>';
+  document.getElementById('tabla-semana').innerHTML = tableHTML;
+
+  // Populate colecta caja select
+  const sel = document.getElementById('colecta-caja');
+  const urgentes = incubacion
+    .map(r => ({ ...r, dr: calcDiasRestantes(r.fechaColecta) }))
+    .filter(r => r.dr <= 2)
+    .sort((a,b) => a.dr - b.dr);
+  sel.innerHTML = '<option value="">Seleccionar caja urgente...</option>' +
+    urgentes.map(r => `<option value="${r.caja}">${r.caja} — ${r.tipo} (${r.dr < 0 ? Math.abs(r.dr)+'d vencida' : r.dr === 0 ? 'HOY' : r.dr+'d'})</option>`).join('') +
+    (urgentes.length === 0 ? '<option disabled>No hay cajas urgentes hoy</option>' : '');
+
+  // Render colectas asignadas hoy
+  const hoyStr = today();
+  const hoyColectas = colectasHoy.filter(c => c.fecha === hoyStr);
+  const listEl = document.getElementById('lista-colectas-hoy');
+  if (!hoyColectas.length) {
+    listEl.innerHTML = '<div style="font-size:13px;color:var(--text3);padding:8px 0">Sin colectas asignadas hoy</div>';
+  } else {
+    listEl.innerHTML = hoyColectas.map(c => `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)">
+        <div>
+          <span class="caja-code">${c.caja}</span>
+          <span style="font-size:12px;color:var(--text2);margin-left:8px">→ ${c.trabajador}</span>
+        </div>
+        <span class="badge badge-green" style="font-size:11px">Asignada</span>
+      </div>`).join('');
+  }
+}
+
+function asignarColecta() {
+  const caja  = document.getElementById('colecta-caja').value;
+  const trab  = document.getElementById('colecta-trabajador').value;
+  if (!caja || !trab) { flash('⚠ Selecciona caja y trabajador'); return; }
+  colectasHoy.push({ caja, trabajador: trab, fecha: today() });
+  sessionStorage.setItem('colectas_hoy', JSON.stringify(colectasHoy));
+  flash('✓ Caja ' + caja + ' asignada a ' + trab);
+  renderTrabajadores();
+}
+
+// ═══════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════
+function renderDashboard() {
+  const total     = incubacion.length;
+  const urgentes  = incubacion.filter(r => calcDiasRestantes(r.fechaColecta) <= 0).length;
+  const pronto    = incubacion.filter(r => { const d = calcDiasRestantes(r.fechaColecta); return d > 0 && d <= 2; }).length;
+  const enGranja  = incubacion.filter(r => calcDiasRestantes(r.fechaColecta) > 2).length;
+  const stockPienso = pienso.reduce((acc, r) => r.tipo === 'entrada' ? acc + r.cantidad : acc - r.cantidad, 0);
+  const lotes     = buildLotesStock();
+  const stockProduct = lotes.reduce((a, l) => a + (l.producido - l.vendido), 0);
+  const totalTraz = trazabilidad.length;
+
+  // Cajas por tipo
+  const engorde = incubacion.filter(r => r.tipo === 'Engorde').length;
+  const repro   = incubacion.filter(r => r.tipo === 'Reproducción').length;
+
+  // Days oldest box
+  const oldest = incubacion.reduce((max, r) => {
+    const d = calcDiasVividos(r.fechaIngreso);
+    return d > max ? d : max;
+  }, 0);
+
+  const card = (icon, label, val, color) =>
+    `<div class="stat-card" style="text-align:left;padding:16px">
+      <div style="font-size:11px;color:var(--text3);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">${label}</div>
+      <div style="font-family:'DM Mono',monospace;font-size:26px;font-weight:500;color:${color || 'var(--text)'};">${val}</div>
+    </div>`;
+
+  const alertaCSS = urgentes > 0 ? 'background:var(--red-bg);border:1px solid var(--red);' : pronto > 0 ? 'background:var(--amber-bg);border:1px solid var(--amber);' : 'background:var(--green-bg);border:1px solid var(--green);';
+  const alertaMsg = urgentes > 0 ? '🚨 ' + urgentes + ' caja(s) URGENTE colecta' : pronto > 0 ? '⏰ ' + pronto + ' caja(s) próxima colecta (≤2 días)' : '✅ Todo en orden — sin urgencias';
+  const alertaColor = urgentes > 0 ? 'var(--red)' : pronto > 0 ? 'var(--amber)' : 'var(--green)';
+
+  document.getElementById('dashboard-content').innerHTML = `
+    <div style="${alertaCSS}border-radius:10px;padding:14px 16px;margin-bottom:18px;font-size:14px;font-weight:500;color:${alertaColor}">${alertaMsg}</div>
+
+    <div style="font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--text3);margin-bottom:10px">Incubación</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px">
+      ${card('📦', 'Total activas', total, 'var(--text)')}
+      ${card('🚨', 'Urgentes', urgentes, urgentes > 0 ? 'var(--red)' : 'var(--text3)')}
+      ${card('⏰', 'Pronto colecta', pronto, pronto > 0 ? 'var(--amber)' : 'var(--text3)')}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px">
+      ${card('🟢', 'En granja', enGranja, 'var(--green)')}
+      ${card('🐛', 'Engorde', engorde, 'var(--blue)')}
+      ${card('🥚', 'Reproducción', repro, 'var(--purple)')}
+    </div>
+
+    <div style="font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--text3);margin-bottom:10px">Stock</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px">
+      ${card('🌾', 'Pienso (kg)', stockPienso.toFixed(1), stockPienso < 50 ? 'var(--red)' : 'var(--green)')}
+      ${card('📦', 'Producto total (kg)', stockProduct.toFixed(1), 'var(--blue)')}
+    </div>
+
+    <div style="font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--text3);margin-bottom:10px">Historial</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px">
+      ${card('📋', 'Cajas procesadas', totalTraz, 'var(--text)')}
+      ${card('📅', 'Días máx. en granja', oldest, oldest > 40 ? 'var(--red)' : 'var(--text)')}
+    </div>
+
+    ${lotes.length > 0 ? `
+    <div style="font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--text3);margin-bottom:10px">Lotes activos</div>
+    ${lotes.slice(0,5).map(l => {
+      const stock = l.producido - l.vendido;
+      const pct   = l.producido > 0 ? Math.max(stock / l.producido * 100, 2) : 2;
+      return `<div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:8px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-family:'DM Mono',monospace;font-size:13px;color:var(--blue)">${l.lote}</span>
+          <span style="font-size:13px;font-weight:500;color:${stock <= 0 ? 'var(--text3)' : 'var(--green)'}">${stock.toFixed(1)} kg</span>
+        </div>
+        <div style="background:var(--bg3);border-radius:4px;height:5px">
+          <div style="background:${stock <= 0 ? 'var(--text3)' : pct > 50 ? 'var(--green)' : 'var(--amber)'};height:5px;border-radius:4px;width:${pct}%;transition:width 0.4s"></div>
+        </div>
+      </div>`;
+    }).join('')}` : ''}
+  `;
 }
 
 // ═══════════════════════════════════════════
