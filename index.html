@@ -1148,18 +1148,18 @@ function renderSustratos() {
     else if (r.vividos>=44) { cls='aviso-hoy sust-naranja';     icon='🟠'; msg='Poner sustrato ya — día '+r.vividos; colorDias='var(--orange)'; }
     else                    { cls='aviso-pronto sust-amarillo'; icon='🟡'; msg='Poner sustrato — día '+r.vividos; colorDias='var(--amber)'; }
     const diasColecta = calcDiasRestantes(r.fechaColecta);
-    const grid = `
-  <div class="sustrato-grid">
-    ${(r.sustratoDias || Array(10).fill(false)).map((done, i) => `
-      <div
-        class="sustrato-day ${done ? 'done' : ''}"
-        onclick="toggleSustrato('${r.caja}', ${i})"
-        title="Día ${40 + i}"
-      >
-        ${40 + i}
-      </div>
-    `).join('')}
-  </div>
+const grid = `
+<div class="sustrato-grid">
+  ${(r.sustratoDias || Array(10).fill(false)).map((done, i) => `
+    <div
+      class="sustrato-day ${done ? 'done' : ''}"
+      onclick="toggleSustrato('${r.caja}', ${i})"
+      title="Día ${40 + i}"
+    >
+      ${40 + i}
+    </div>
+  `).join('')}
+</div>
 `;
     return `
     <div class="aviso-card ${cls}" style="border-left:3px solid ${colorDias}">
