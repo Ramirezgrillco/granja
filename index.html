@@ -7,27 +7,43 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #1a1f16;
-  --bg2: #212818;
-  --bg3: #2a3320;
-  --bg4: #323d27;
-  --border: rgba(180,210,160,0.12);
-  --border2: rgba(180,210,160,0.20);
-  --text: #e8ead8;
-  --text2: #9aaa7a;
-  --text3: #5a6b45;
-  --green: #6aaa5a;
-  --green2: #4a8a3a;
-  --green-bg: rgba(106,170,90,0.15);
-  --amber: #d4a843;
-  --amber-bg: rgba(212,168,67,0.12);
-  --orange: #e07a30;
-  --orange-bg: rgba(224,122,48,0.12);
-  --red: #e05a4a;
-  --red-bg: rgba(224,90,74,0.12);
-  --blue: #7ab8c8;
-  --blue-bg: rgba(122,184,200,0.12);
-  --purple: #a89060;
+  --bg: #e6edd2;
+  --bg2: #f1f4e6;
+  --bg3: #dde6c6;
+  --bg4: #cad7b3;
+
+  /* Borders */
+  --border: rgba(80, 110, 80, 0.18);
+  --border2: rgba(80, 110, 80, 0.32);
+
+  /* Text */
+  --text: #2f2f2b;
+  --text2: #5f6f5a;
+  --text3: #869580;
+
+  /* Primary green */
+  --green: #6b8a6d;
+  --green2: #445c3c;
+  --green-bg: rgba(107, 138, 109, 0.22);
+
+  /* Alerts */
+  --amber: #d8b65c;
+  --amber-bg: rgba(216, 182, 92, 0.22);
+
+  --orange: #c98742;
+  --orange-bg: rgba(201, 135, 66, 0.22);
+
+  --red: #c75b4a;
+  --red-bg: rgba(199, 91, 74, 0.22);
+
+  /* Info */
+  --blue: #6fa6a6;
+  --blue-bg: rgba(111, 166, 166, 0.22);
+
+  /* Special */
+  --purple: #6b4a3a;
+
+  /* UI */
   --radius: 12px;
   --radius-sm: 8px;
 }
@@ -297,10 +313,12 @@ canvas { max-width: 100%; }
       <div class="field">
         <label>Responsable</label>
         <select id="inc-responsable">
-          <option value="">Seleccionar...</option>
+          <option value="Begoña">Begoña</option>
+          <option value="Damia">Damia</option>
+          <option value="Marina">Marina</option>
           <option value="Mohammed">Mohammed</option>
           <option value="Napoleon">Napoleon</option>
-          <option value="Zacarias">Zacarias</option>
+          <option value="Rodrigo">Rodrigo</option>
         </select>
       </div>
     </div>
@@ -344,9 +362,14 @@ canvas { max-width: 100%; }
           <label>Responsable</label>
           <select id="obr-responsable-humedo">
             <option value="">Seleccionar...</option>
+           <option value="Begoña">Begoña</option>
+            <option value="Damia">Damia</option>
+            <option value="Marina">Marina</option>
             <option value="Mohammed">Mohammed</option>
             <option value="Napoleon">Napoleon</option>
+            <option value="Rodrigo">Rodrigo</option>
             <option value="Zacarias">Zacarias</option>
+            <option value="Zakarias">Zakarias</option>
           </select>
         </div>
       </div>
@@ -374,9 +397,14 @@ canvas { max-width: 100%; }
           <label>Responsable</label>
           <select id="obr-responsable-seco">
             <option value="">Seleccionar...</option>
+            <option value="Begoña">Begoña</option>
+            <option value="Damia">Damia</option>
+            <option value="Marina">Marina</option>
             <option value="Mohammed">Mohammed</option>
             <option value="Napoleon">Napoleon</option>
+            <option value="Rodrigo">Rodrigo</option>
             <option value="Zacarias">Zacarias</option>
+            <option value="Zakarias">Zakarias</option>
           </select>
         </div>
       </div>
@@ -485,9 +513,14 @@ canvas { max-width: 100%; }
         <label>Responsable</label>
         <select id="pienso-responsable">
           <option value="">Seleccionar...</option>
+          <option value="Begoña">Begoña</option>
+          <option value="Damia">Damia</option>
+          <option value="Marina">Marina</option>
           <option value="Mohammed">Mohammed</option>
           <option value="Napoleon">Napoleon</option>
+          <option value="Rodrigo">Rodrigo</option>
           <option value="Zacarias">Zacarias</option>
+          <option value="Zakarias">Zakarias</option>
         </select>
       </div>
     </div>
@@ -859,7 +892,7 @@ async function registrarCaja() {
   if (!caja || !fecha || !tipo) { flash('⚠ Completa: código, fecha y tipo'); return; }
   if (incubacion.find(r => r.caja === caja)) { flash('⚠ Ya existe una caja con ese código'); return; }
   const fechaColecta = calcFechaColecta(fecha, tipo);
-  incubacion.push({ caja, peso, fechaIngreso:fecha, tipo, fechaColecta, responsable, estado:'ACTIVO', creado:new Date().toISOString() });
+  incubacion.push({ caja, peso, fechaIngreso:fecha, tipo, fechaColecta, responsable, estado:'ACTIVO', creado:new Date().toISOString(), sustratoDias: Array(10).fill(false) });
   await save();
   ['inc-caja','inc-peso','inc-responsable'].forEach(id => document.getElementById(id).value='');
   document.getElementById('inc-tipo').value='';
@@ -1115,6 +1148,19 @@ function renderSustratos() {
     else if (r.vividos>=44) { cls='aviso-hoy sust-naranja';     icon='🟠'; msg='Poner sustrato ya — día '+r.vividos; colorDias='var(--orange)'; }
     else                    { cls='aviso-pronto sust-amarillo'; icon='🟡'; msg='Poner sustrato — día '+r.vividos; colorDias='var(--amber)'; }
     const diasColecta = calcDiasRestantes(r.fechaColecta);
+    const grid = `
+  <div class="sustrato-grid">
+    ${(r.sustratoDias || Array(10).fill(false)).map((done, i) => `
+      <div
+        class="sustrato-day ${done ? 'done' : ''}"
+        onclick="toggleSustrato('${r.caja}', ${i})"
+        title="Día ${40 + i}"
+      >
+        ${40 + i}
+      </div>
+    `).join('')}
+  </div>
+`;
     return `
     <div class="aviso-card ${cls}" style="border-left:3px solid ${colorDias}">
       <div class="aviso-icon">${icon}</div>
@@ -1123,6 +1169,7 @@ function renderSustratos() {
         <div class="aviso-msg">${msg}</div>
         <div class="aviso-msg" style="margin-top:2px">Responsable: ${r.responsable||'—'} · Colecta: ${formatDate(r.fechaColecta)}</div>
         ${diasColecta<0?`<div class="aviso-msg" style="color:var(--red);margin-top:2px">⚠ Colecta vencida hace ${Math.abs(diasColecta)} días — puede seguir poniendo huevos</div>`:''}
+        ${grid}
       </div>
       <div class="aviso-dias" style="color:${colorDias}">
         ${r.vividos}<div style="font-size:10px;font-weight:400;color:var(--text3)">días</div>
@@ -1130,6 +1177,19 @@ function renderSustratos() {
     </div>`;
   }).join('');
 }
+async function toggleSustrato(caja, index) {
+  const r = incubacion.find(x => x.caja === caja);
+  if (!r) return;
+
+  if (!Array.isArray(r.sustratoDias)) {
+    r.sustratoDias = Array(10).fill(false);
+  }
+
+  r.sustratoDias[index] = !r.sustratoDias[index];
+  await save();
+  renderSustratos();
+}
+ 
 
 // ══════════════════════════════════════════
 // TRAZABILIDAD
