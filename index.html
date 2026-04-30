@@ -714,24 +714,20 @@ function showAuthError(msg) {
 }
 async function readData() {
   try {
-    const OWNER = 'ramirez@grillco.cat';
-    const url  = `https://graph.microsoft.com/v1.0/users/${OWNER}/drive/root:/${FOLDER_PATH}/${FILE_NAME}:/content`;
+    const url  = `https://graph.microsoft.com/v1.0/me/drive/root:/${FOLDER_PATH}/${FILE_NAME}:/content`;
     const resp = await fetch(url, { headers:{ Authorization:'Bearer '+accessToken } });
     if (resp.status === 404) return null;
     if (!resp.ok) throw new Error('Read error '+resp.status);
     return await resp.json();
   } catch(e) { console.warn('readData:', e); return null; }
 }
-
 async function writeData(data) {
   setSyncing(true);
   try {
-    const OWNER = 'ramirez@grillco.cat';
-    const url = `https://graph.microsoft.com/v1.0/users/${OWNER}/drive/root:/${FOLDER_PATH}/${FILE_NAME}:/content`;
-    const resp = await fetch(url, { method:'PUT', headers:{ Authorization:'Bearer '+accessToken, 'Content-Type':'application/json' }, body:JSON.stringify(data) });
-    if (!resp.ok) throw new Error('Write error '+resp.status);
+    const url = `https://graph.microsoft.com/v1.0/me/drive/root:/${FOLDER_PATH}/${FILE_NAME}:/content`;
+    await fetch(url, { method:'PUT', headers:{ Authorization:'Bearer '+accessToken, 'Content-Type':'application/json' }, body:JSON.stringify(data) });
     showSynced();
-  } catch(e) { flash('⚠ Error al guardar: '+e.message); }
+  } catch(e) { flash('⚠ Error al guardar en OneDrive'); }
   finally { setSyncing(false); }
 }
 function setSyncing(on) {
